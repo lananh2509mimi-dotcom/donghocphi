@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đóng học phí - Trường Tiểu học Đoàn Thị Điểm</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #fff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 25px 30px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #1a73e8;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    button {
+      width: 100%;
+      background-color: #1a73e8;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #155ec9;
+    }
+    .result {
+      margin-top: 25px;
+      text-align: center;
+      display: none;
+    }
+    .result img {
+      max-width: 250px;
+      margin-top: 10px;
+    }
+    .content-box {
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: 500;
+      margin-top: 10px;
+      word-wrap: break-word;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ĐÓNG HỌC PHÍ<br>TRƯỜNG TIỂU HỌC ĐOÀN THỊ ĐIỂM</h2>
+
+    <label for="name">Họ và tên học sinh</label>
+    <input type="text" id="name" placeholder="Nhập họ tên học sinh">
+
+    <label for="dob">Ngày tháng năm sinh</label>
+    <input type="text" id="dob" placeholder="VD: 01/09/2015">
+
+    <label for="phone">Số điện thoại phụ huynh</label>
+    <input type="text" id="phone" placeholder="VD: 0901234567">
+
+    <label for="campus">Cơ sở</label>
+    <select id="campus">
+      <option value="">-- Chọn cơ sở --</option>
+      <option value="MĐ">MĐ</option>
+      <option value="CN">CN</option>
+    </select>
+
+    <button onclick="generateQR()">TẠO MÃ QR</button>
+
+    <div class="result" id="result">
+      <img src="qr.png" alt="QR Code">
+      <div class="content-box" id="output"></div>
+      <button class="copy-btn" onclick="copyContent()">Sao chép nội dung</button>
+    </div>
+  </div>
+
+  <script>
+    function generateQR() {
+      const name = document.getElementById("name").value.trim();
+      const dob = document.getElementById("dob").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const campus = document.getElementById("campus").value;
+
+      if (!name || !dob || !phone || !campus) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+      }
+
+      const content = `CLBTT - ${campus} - ${name} - ${dob} - ${phone}`;
+      document.getElementById("output").textContent = content;
+      document.getElementById("result").style.display = "block";
+    }
+
+    function copyContent() {
+      const text = document.getElementById("output").textContent;
+      navigator.clipboard.writeText(text);
+      alert("Đã sao chép nội dung chuyển khoản!");
+    }
+  </script>
+</body>
+</html>
